@@ -1,0 +1,1 @@
+export const BaseURL = "https://fotoh-backend.onrender.com/fotor"

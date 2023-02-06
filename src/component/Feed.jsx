@@ -13,7 +13,7 @@ const Feed = ({SanUser}) => {
 
   const {categoriesid} = useParams();
   useEffect(( )=>{ setloading(true)
-    console.log({SanUser})
+   
 
     if(categoriesid){const query = searchQuery(categoriesid)
     client.fetch(query).then((res)=>{setPin(res)
@@ -25,8 +25,6 @@ const Feed = ({SanUser}) => {
          
   },[categoriesid])
 
-  console.log(Pin)
-  console.log({SanUser})
   if(loading)return <div className='m-auto'><Spinner message={"we are adding new fotohs to your feed"}/></div>
   if(!Pin || Pin.length <= 0)return <div className='flex justify-center'> No Fotoh Available For this Category</div>
   return (

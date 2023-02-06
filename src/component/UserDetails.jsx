@@ -2,23 +2,40 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import MansoryLayout from './MansoryLayout'
 import { useParams, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { client } from '../client'
 import Spinner from './Spinner'
 import { userDetails } from '../assets (1)/utilitty/data'
 import {feedQuery,userSavedPinsQuery} from '../assets (1)/utilitty/data';
 import { Avatar } from '@mui/material'
 
-const UserDetails = ({SanUser,User, userid,EditProfile,setEditProfile}) => {
+const UserDetails = ({SanUser}) => {
    
 const [ActiveBtn,setActiveBtn] = useState("Created");
 const [Text,setText] = useState("Created");
 const [Pin,setPin] = useState(null);
+const [User, setUser] = useState(null);
+const [Loading, setLoading] = useState(true);
 const ActiveStyle ="bg-red rounded-full p-2 text-white mr-3"
 const NActiveStyle ="bg-white rounded-full p-2 text-black  ";
 
 
   const RandomImage ="https://source.unsplash.com/1600x900/?nature,photography,technology,automobile,catoon"
   
+  const {userid}= useParams();
+
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+  
+    client.fetch(userDetails(userid)).then((res)=>{
+      console.log(res)
+        setUser(res)
+        setLoading(false)
+      
+    })
+},[])
+
   useEffect(()=>{
    console.log({userid})
         if( Text ==="Created"){
@@ -38,7 +55,9 @@ const NActiveStyle ="bg-white rounded-full p-2 text-black  ";
     
   ,[Text, userid])
 
-  console.log({User})
+  if(Loading) {
+    return  <div><Spinner message="Loading your profile"/>
+</div>}
   
   return (
     <div className='relative p-2 h-full justify-center items-center'>
@@ -56,7 +75,7 @@ const NActiveStyle ="bg-white rounded-full p-2 text-black  ";
                 <div className='flex items-end w-full justify-end' >
                     <button 
                     className='-mt-[30px] outline-4 border-2 bg-gray-100 p-2 rounded-full'
-                    onClick={()=>{setEditProfile(!EditProfile)}} >
+                    onClick={()=>{navigate("/edit-profile")}} >
                         EditProfile
                         </button>
                         </div>

@@ -25,7 +25,7 @@ const NavBar = ({ Searcher, setSearcher, user,SanUser }) => {
         </Link>
         <div className='m-auto gap-3 hidden md:block items-center justify-center'>
         <Link to={`/login`}>
-          {!user ? <button className='bg-[#3f25b1] text-white p-2 rounded-lg'>Sign in</button>: <button onClick={()=>{localStorage.clear()}} className='bg-[#e54a61] text-white p-2 rounded-lg'>Log out</button>}
+          {!SanUser ? <button className='bg-[#3f25b1] text-white p-2 rounded-lg'>Sign in</button>: <button onClick={()=>{localStorage.clear()}} className='bg-[#e54a61] text-white p-2 rounded-lg'>Log out</button>}
          
         </Link>
       </div>

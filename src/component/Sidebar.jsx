@@ -17,7 +17,7 @@ console.log((SanUser))
 const isNotActiveStyle="flex items-center px-5 gap-3 text-grey-500 font-[1px] hover:text-black transition-all duration-200 ease-in-out capitalize  "
 const isActiveStyle="flex items-center  px-5 gap-3 font-extrabold  border-r-2 border-black  transition-all duration-200 ease-in-out capitalize  "
   return (
-    <div className='flex flex-col h-full min-w-210 overflow-y-scroll bg-white justify-between hide-scrollbar'>
+    <div className='flex flex-col h-full min-w-210 overflow-y-scroll  bg-white justify-between hide-scrollbar'>
       < div className='flex flex-col'>
         <Link to="/" className="flex px-5 gap2 my-6 pt-1 w-190 items-center  "
        onClick={handleclosebar} >
@@ -39,19 +39,13 @@ const isActiveStyle="flex items-center  px-5 gap-3 font-extrabold  border-r-2 bo
               {items.name}
            
             </NavLink>))}
-            <NavLink
-             to="/Saved"
-            className={({isActive})=>isActive? isActiveStyle: isNotActiveStyle}
-            onClick={handleclosebar} >
            
-             My Fotors
-            </NavLink>
         </div>
-      </div> {user && <Link to={`userProfile/${SanUser?.[0]?._id}`}
+      </div> {SanUser && <Link to={`user-detail/${SanUser?.[0]?._id}`}
        onClick={handleclosebar}
        className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3">
       <Avatar src={SanUser?.[0].profilepicture} className='w-10 h-10 rounded-full'/>
-      <p>{user?.username}</p>
+      <p>{SanUser?.[0].username}</p>
       </Link>}
       
       </div>

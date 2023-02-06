@@ -18,7 +18,7 @@ const Pin = ({key,items,SanUser}) => {
  const User = fetchUser();
 
  const newimage = image?image:imageasset;
- console.log({_id})
+
 
  const itemSaved= !!(save?.filter((save)=> save.postedby?._id === SanUser?.[0]?._id ))?.length;
 
@@ -27,7 +27,7 @@ const savePin = (id)=>{
     console.log("kindly login into your accout")
     return;
   }
-  console.log(SanUser)
+ 
   if(!itemSaved){
     client.patch(id).setIfMissing({save: []}).insert("after","save[-1]",[{
         _key:uuidv4(),
@@ -61,6 +61,10 @@ const savePin = (id)=>{
 const deletePin =(id)=>{
   if(!SanUser || SanUser.length === 0){
     console.log("kindly signin into your accout")
+    return;
+  }
+  if(items.postedby._id !== SanUser?.[0]._id){
+    console.log("you can only delete fotoh you created")
     return;
   }
     client.delete(id).then(()=>{

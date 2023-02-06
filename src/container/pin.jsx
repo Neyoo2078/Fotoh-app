@@ -3,6 +3,9 @@ import { NavBar, Feed, Search, CreatePin, PinDetails } from '../component'
 import { Route,Routes } from 'react-router-dom'
 import { useState } from 'react'
 import Myfotoh from '../component/Myfotoh'
+import UserDetails from '../component/UserDetails'
+import {UserProfile} from '../component'
+
 
 
 const Pin = ({user,SanUser}) => {
@@ -21,7 +24,9 @@ const Pin = ({user,SanUser}) => {
           <Route path='/pin-details/:pinid' element={<PinDetails user={user} SanUser={SanUser}/>}/>
           <Route path='/create-pin' element={<CreatePin user={user} SanUser={SanUser}/>}/>
           <Route path='/search' element={<Search Searcher={Searcher} setSearcher={setSearcher}/>}/>
-          <Route path='/Saved' element={<Myfotoh  SanUser={SanUser && SanUser}/>}/>
+         
+          <Route path='/user-detail/:userid' element={<UserDetails SanUser={SanUser && SanUser}/>}/>
+          <Route path='/edit-profile' element={<UserProfile SanUser={SanUser && SanUser}/>}/>
         </Routes>
       </div>
     </div>

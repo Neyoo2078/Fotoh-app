@@ -8,8 +8,8 @@ import MansoryLayout from './MansoryLayout'
 import { useParams, useNavigate } from 'react-router-dom'
 import { client } from '../client'
 import Spinner from './Spinner'
-import { userDetails } from '../assets (1)/utilitty/data'
-import UserDetails from './UserDetails';
+
+
 import {BiArrowBack} from "react-icons/bi"
 
 
@@ -26,27 +26,18 @@ const UserProfile = ({ user, SanUser }) => {
   const [Intrest, setIntrest] = useState("");
   const [EditProfile, setEditProfile] = useState(false);
 
-  const [User, setUser] = useState(null);
+
   
-  const [UserSavedPin, setUserSavedPin] = useState(false);
-  
-  const [UserCreatedPin, setUserCreatedPin] = useState(false);
-  const [Loading, setLoading] = useState(true);
 
 
-  const {userid} = useParams();
+
+
+
   const Navigate = useNavigate();
 
 
 
-  useEffect(()=>{
-  
-    client.fetch(userDetails(userid)).then((res)=>{
-      console.log(res)
-        setUser(res)
-      
-    })
-},[])
+ 
 
 
 
@@ -85,34 +76,33 @@ console.log({doc})
     }
   }
 
-  if(!User || User?.length <= 0){ return<div className='m-auto'> <Spinner message="loading Profile"/></div>}
+  
   return (
     <div className=' bg-gray-50  pt-5 '>
-      <div className='px-2 md:px-5'>
-        <NavBar user={user} />
-      </div>{ EditProfile ? <div className='flex items-center flex-col w-4/5 p-3 bg-gray-100 m-auto h-full '>
+      <div className='flex items-center flex-col w-4/5 p-3 bg-gray-100 m-auto h-full '>
         <div className='flex justify-end items-center mr-10 w-full'
         onClick={()=>{setEditProfile(false)}}>
        <BiArrowBack size={20}  className='text-gray-500 '/>
           <button type="button"
-        
+            onClick={()=>{Navigate(`/user-detail/${SanUser?.[0]._id}`)}}
         className='text-gray-500 mx-2 border-2 border-gray-200 p-1 rounded-full'>Back</button>
        
         </div>
+        <div className=' flex justify-center  items-center   '>
         {profilePicture ?
-          <div className='rounded-full relative flex justify-center border-2 items-center   border-black w-[150px] h-[150px]'>
+         
             <img src={profilePicture} alt="user-fotoh" className='w-[150px] h-[150px] rounded-full' />
-          </div> : <label>
-            <div className='rounded-full relative flex justify-center border-2 items-center  border-black w-[150px] h-[150px]'>
+           : <label className=' flex flex-col justify-center  items-center'>
+          
               <Avatar square className="border-2 border-gray-500 " style={{ width: "150px", height: "150px" }} />
-              <GrFormAdd size={40} className="z-20 absolute top-[35%] text-[#d11818]" />
+              
               <FileBase64
                 typr="file"
                 multiple="false"
                 className="w-0 h-0"
                 onDone={(base64) => { setprofilePicture(base64[0].base64) }} />
-            </div>
-          </label>}
+           
+          </label>}</div>
         <div className='flex flex-col'>
           <input placeholder='enter first name' className='mt-5 p-2 w-[300px]'
             onChange={(e) => { setfirstName(e.target.value) }}
@@ -129,9 +119,7 @@ console.log({doc})
           <input onChange={(e)=>{setIntrest(e.target.value.split(","))}} placeholder='my intrest' className='mt-5  p-2 w-[300px]' />
           <button type='button' className='mt-5  p-2 w-[300px] border-2 ' onClick={updateProfile}>Update Profile </button>
         </div>
-      </div>:
-      <div><UserDetails SanUser={SanUser} User={User} userid={userid} EditProfile={EditProfile} setEditProfile={setEditProfile}/></div>}
-      
+      </div>
     </div>
 
 

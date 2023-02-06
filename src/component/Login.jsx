@@ -7,6 +7,7 @@ import logo from "../assets (1)/assets/logos.png"
 import { Link } from 'react-router-dom';
 import { useState,useEffect } from 'react';
 import { client } from '../client';
+import { BaseURL } from '../assets (1)/utilitty/Connection';
 
 
 
@@ -105,7 +106,7 @@ useEffect(()=>{
         
     return}
        
-       await axios.post("http://localhost:5000/fotor",{username:logDetails.username, email:logDetails.email,
+       await axios.post(`${BaseURL}`,{username:logDetails.username, email:logDetails.email,
        password:logDetails.password}).then((res)=>{
        
         if(res.data.status === false){
@@ -136,10 +137,10 @@ useEffect(()=>{
         e.preventDefault();
         if(!accesDetails.email && !accesDetails.password){   loginError("Fill all fields");
        return }
-        await axios.post("http://localhost:5000/fotor/access",{email:accesDetails.email,password:accesDetails.password}).then((res)=>{
-           console.log(res)
+        await axios.post(`${BaseURL}/access`,{email:accesDetails.email,password:accesDetails.password}).then((res)=>{
+         
         if(res.data.valid){
-                console.log(res.data.user)
+                
                localStorage.setItem("user",JSON.stringify({username:res.data.user.username,email:res.data.user.email,_id:res.data.user._id}))
                navigate("/",{replace:true});
             }else{

@@ -12,6 +12,7 @@ import foto  from "../assets (1)/assets/foto.png"
 import Avatar from '@mui/material/Avatar';
 import { fetchUser } from '../assets (1)/utilitty/fetchUser';
 import { userQuery } from '../assets (1)/utilitty/data';
+import { BaseURL } from '../assets (1)/utilitty/Connection';
 
 
 
@@ -23,17 +24,20 @@ const Home = () => {
   const scrollref = useRef(null);
   const [ToggleSidebar, setToggleSidebar] = useState(false)
   
+  console.log(userinfo?.email)
   
+  useEffect(()=>{
   
-  useEffect(()=>async()=>{
-    const {data} = await axios.get(`http://localhost:5000/fotor/${userinfo?._id}/finduser`);
+   
    client.fetch(userQuery(userinfo?.email)).then((dat)=>{
+    setSanUser(dat);
     console.log({dat})
-   setSanUser(dat)
+ 
    }).catch((err)=>{ console.log(err)})
-    setuser(data)
+  
    },[])
    console.log({SanUser})
+   console.log({user})
 
    useEffect(()=>{
    scrollref.current.scrollTo(0,0)
@@ -49,9 +53,9 @@ const Home = () => {
         <div className='p-2 w-full flex flex-row justify-between items-center shadow-md'>
         <HiMenu fontSize={40} className="cursor-pointer" onClick={()=>{setToggleSidebar(true)}}/>
         <Link to="/"> <img src={foto} alt="logos" className='w-28' /></Link>
-        <Link to={ `UserProfile/${user?._id}`}> {SanUser?<Avatar src={SanUser?.[0]?.profilepicture} alt="logos" className='w-28' />:<Avatar src={""} alt="logos" className='w-28' />}</Link>
+        <Link to={ `UserProfile/${SanUser?.[0]._id}`}> {SanUser?<Avatar src={SanUser?.[0]?.profilepicture} alt="logos" className='w-28' />:<Avatar src={""} alt="logos" className='w-28' />}</Link>
         <Link to={`/login`}>
-          {!user ? <button className='bg-[#3f25b1] text-white p-2 rounded-lg'>Sign in</button>: <button onClick={()=>{localStorage.clear()}} className='bg-[#e54a61] text-white p-2 rounded-lg'>Log out</button>}
+          {!SanUser ? <button className='bg-[#3f25b1] text-white p-2 rounded-lg'>Sign in</button>: <button onClick={()=>{localStorage.clear()}} className='bg-[#e54a61] text-white p-2 rounded-lg'>Log out</button>}
          
         </Link>
         </div>
@@ -64,7 +68,7 @@ const Home = () => {
           }
       </div>
      
-          <div className='pb-2 flex-1 h-screen overflow-y-scroll' ref={scrollref}>
+          <div className='pb-2 flex-1 h-full overflow-y-auto' ref={scrollref}>
             <Routes>
               <Route path='/userProfile/:userid' element={<UserProfile user={user && user} SanUser={SanUser && SanUser}/>}/>
               <Route path='/*' element={<Pin user={user && user} SanUser={SanUser && SanUser}/>}/>

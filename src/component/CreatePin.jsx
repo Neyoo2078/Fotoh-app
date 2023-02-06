@@ -78,10 +78,10 @@ client.create(doc).then(()=>{
           {WrongImageType && <p>Wrong image Type</p>}
           {!ImageAsset ?<label><div className='flex flex-col items-center justify-center'>
             <div className='flex flex-col justify-center items-center'>
-              <p className='font-bold text-2xl'>
+              <p className='font-bold text-xl sm:text-2xl'>
                 <AiOutlineCloudUpload/>
               </p>
-              <p>click to Upload</p>
+              <p className='font-bold text-[10px] sm:text-[15px]'>click to Upload</p>
               </div>
               </div>
               <input
@@ -103,32 +103,32 @@ client.create(doc).then(()=>{
                </button>
              </div>
               }
-              { !ImageAsset && <p className='mt-10 text-gray-400'>
+              { !ImageAsset && <p className='mt-10 text-gray-400 text-[12px] '>
                           Use high quality PNG, JPG, SVG, GIFF less than 20MB
               </p>}
         </div> 
         
       </div>
-      <div className="flex  flex-1 flex-col gap-6  mt-5 w-[70%] px-5 ">
+      <div className="flex  flex-1 flex-col gap-6  mt-5 w-full sm:w-[70%] px-5 ">
           <input
           type="text"
           placeholder="enter your title here"
           onChange={(e)=>{setTitle(e.target.value)}}
-          className=" text-2xl sm:text-[15px] font-bold b-gray-200 border-b-2 w-full "/>
+          className=" text-[15px] sm:text-[20px] font-semibold b-gray-200 border-b-2 w-full "/>
          
          <input
           type="text"
           placeholder="enter about here"
           onChange={(e)=>{setAbout(e.target.value)}}
-          className=" text-2xl sm:text-[15px]  b-gray-200 border-b-2 w-full "/>
+          className=" text-[15px] sm:text-[20px] font-semibold b-gray-200 border-b-2 w-full "/>
             <input
           type="text"
           placeholder="enter destination url"
           onChange={(e)=>{setDestination(e.target.value)}}
-          className=" text-2xl sm:text-[15px] font-bold b-gray-200 border-b-2 w-full "/>
+          className=" text-[15px] sm:text-[20px] font-semibold b-gray-200 border-b-2 w-full "/>
            <div className='flex flex-col gap-2  text-xl sm:text-[15px]  text-gray-400'>
-            <p className='text-black'>Select Fotoh Category:</p>
-           <select className='border-2 sm:text-[15px]' onChange={(e)=>{ setCategories(e.target.value)}} >
+            <p className='text-black text-[15px] sm:text-[20px]'>Select Fotoh Category:</p>
+           <select className=" text-[15px] sm:text-[20px] font-semibold b-gray-200 border-b-2 w-full " onChange={(e)=>{ setCategories(e.target.value)}} >
             <option value="others">Others</option>
             { category.map((items,i)=>{
               return <option value={items.name}>{items.name}</option>

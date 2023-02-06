@@ -213,16 +213,16 @@ export const userSavedPinsQuery = (userId) => {
     },
     _id,
     destination,
-    postedBy->{
+    postedby->{
       _id,
-      userName,
-      image
+      username,
+     profilepicture
     },
     save[]{
-      postedBy->{
+      postedby->{
         _id,
-        userName,
-        image
+        username,
+        profilepicture
       },
     },
   }`;
