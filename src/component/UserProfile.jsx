@@ -84,7 +84,7 @@ console.log({doc})
         onClick={()=>{setEditProfile(false)}}>
        <BiArrowBack size={20}  className='text-gray-500 '/>
           <button type="button"
-            onClick={()=>{Navigate(`/user-detail/${SanUser?.[0]._id}`)}}
+            onClick={()=>{Navigate(`/user-detail/${SanUser?.[0]?._id}`)}}
         className='text-gray-500 mx-2 border-2 border-gray-200 p-1 rounded-full'>Back</button>
        
         </div>

@@ -12,22 +12,19 @@ import foto  from "../assets (1)/assets/foto.png"
 import Avatar from '@mui/material/Avatar';
 import { fetchUser } from '../assets (1)/utilitty/fetchUser';
 import { userQuery } from '../assets (1)/utilitty/data';
-import { BaseURL } from '../assets (1)/utilitty/Connection';
+
 
 
 
 const Home = () => {
-   const userinfo = fetchUser();
   
-  const [user,setuser] = useState(null);
+
   const [SanUser,setSanUser] = useState(null);
   const scrollref = useRef(null);
   const [ToggleSidebar, setToggleSidebar] = useState(false)
-  
-  console.log(userinfo?.email)
-  
+   
   useEffect(()=>{
-  
+    const userinfo = fetchUser();
    
    client.fetch(userQuery(userinfo?.email)).then((dat)=>{
     setSanUser(dat);
@@ -37,7 +34,7 @@ const Home = () => {
   
    },[])
    console.log({SanUser})
-   console.log({user})
+  
 
    useEffect(()=>{
    scrollref.current.scrollTo(0,0)
@@ -47,15 +44,15 @@ const Home = () => {
   return (
     <div className='flex md:flex-row flex-col h-screen bg-grey-50 transition-height duration-75 ease-out'>
       <div className='hidden md:flex h-screen flex-initial'>
-        <Sidebar user={user && user}  SanUser={SanUser && SanUser} />
+        <Sidebar   SanUser={SanUser && SanUser} />
       </div>
       <div className='flex md:hidden flex-row'>
         <div className='p-2 w-full flex flex-row justify-between items-center shadow-md'>
         <HiMenu fontSize={40} className="cursor-pointer" onClick={()=>{setToggleSidebar(true)}}/>
         <Link to="/"> <img src={foto} alt="logos" className='w-28' /></Link>
-        <Link to={ `UserProfile/${SanUser?.[0]._id}`}> {SanUser?<Avatar src={SanUser?.[0]?.profilepicture} alt="logos" className='w-28' />:<Avatar src={""} alt="logos" className='w-28' />}</Link>
+        <Link to={ `UserProfile/${SanUser?.[0]?._id}`}> {SanUser?<Avatar src={SanUser?.[0]?.profilepicture} alt="logos" className='w-28' />:<Avatar src={""} alt="logos" className='w-28' />}</Link>
         <Link to={`/login`}>
-          {!SanUser ? <button className='bg-[#3f25b1] text-white p-2 rounded-lg'>Sign in</button>: <button onClick={()=>{localStorage.clear()}} className='bg-[#e54a61] text-white p-2 rounded-lg'>Log out</button>}
+          {!SanUser || SanUser?.length <= 0 ? <button className='bg-[#3f25b1] text-white p-2 rounded-lg'>Sign in</button>: <button onClick={()=>{localStorage.clear()}} className='bg-[#e54a61] text-white p-2 rounded-lg'>Log out</button>}
          
         </Link>
         </div>
@@ -63,15 +60,15 @@ const Home = () => {
          <div className='absolute w-full flex justify-end items-center p-2'>
           <AiFillCloseCircle fontSize={30} className="cursor-pointer" onClick={()=>{setToggleSidebar(false)}}/>
           </div> 
-          <Sidebar  user={user && user} SanUser={SanUser && SanUser} closeToggle={setToggleSidebar} />   
+          <Sidebar   SanUser={SanUser && SanUser} closeToggle={setToggleSidebar} />   
           </div>
           }
       </div>
      
           <div className='pb-2 flex-1 h-full overflow-y-auto' ref={scrollref}>
             <Routes>
-              <Route path='/userProfile/:userid' element={<UserProfile user={user && user} SanUser={SanUser && SanUser}/>}/>
-              <Route path='/*' element={<Pin user={user && user} SanUser={SanUser && SanUser}/>}/>
+              <Route path='/userProfile/:userid' element={<UserProfile  SanUser={SanUser && SanUser}/>}/>
+              <Route path='/*' element={<Pin  SanUser={SanUser && SanUser}/>}/>
             </Routes>
           </div>
           

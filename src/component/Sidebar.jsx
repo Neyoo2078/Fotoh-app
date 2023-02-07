@@ -44,8 +44,8 @@ const isActiveStyle="flex items-center  px-5 gap-3 font-extrabold  border-r-2 bo
       </div> {SanUser && <Link to={`user-detail/${SanUser?.[0]?._id}`}
        onClick={handleclosebar}
        className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3">
-      <Avatar src={SanUser?.[0].profilepicture} className='w-10 h-10 rounded-full'/>
-      <p>{SanUser?.[0].username}</p>
+      <Avatar src={SanUser?.[0]?.profilepicture} className='w-10 h-10 rounded-full'/>
+      <p>{SanUser?.[0]?.username}</p>
       </Link>}
       
       </div>
